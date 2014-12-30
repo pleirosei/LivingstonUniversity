@@ -14,8 +14,8 @@ namespace LivingstonUniversity.DAL
             var students = new List<Student> 
             {
                 new Student{FirstMidName="Sean",LastName="Livingston",EnrollmentDate=DateTime.Parse("2014-10-01")},
-                new Student{FirstMidName="Sean",LastName="Armbrister",EnrollmentDate=DateTime.Parse("2014-15-03")},
-                new Student{FirstMidName="Nicole",LastName="Livingston",EnrollmentDate=DateTime.Parse("2014-13-02")},
+                new Student{FirstMidName="Sean",LastName="Armbrister",EnrollmentDate=DateTime.Parse("2014-03-15")},
+                new Student{FirstMidName="Nicole",LastName="Livingston",EnrollmentDate=DateTime.Parse("2014-02-13")},
                 new Student{FirstMidName="Joanna",LastName="Livingston",EnrollmentDate=DateTime.Parse("2014-03-02")},
                 new Student{FirstMidName="Adoniah",LastName="Livingston",EnrollmentDate=DateTime.Parse("2014-02-02")}
             };
