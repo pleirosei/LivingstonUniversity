@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using LivingstonUniversity.DAL;
 using LivingstonUniversity.Models;
+using PagedList;
 
 namespace LivingstonUniversity.Controllers
 {
@@ -16,10 +17,23 @@ namespace LivingstonUniversity.Controllers
         private SchoolContext db = new SchoolContext();
 
         // GET: Student
-        public ActionResult Index(string sortOrder, string searchString)
+        public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
+            ViewBag.CurrentSort = sortOrder;
             ViewBag.NameSortParam = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewBag.DateSortParam = sortOrder == "Date" ? "date_desc" : "Date";
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
+
             var students = from s in db.Students
                            select s;
             if (!String.IsNullOrEmpty(searchString))
@@ -39,7 +53,9 @@ namespace LivingstonUniversity.Controllers
                     students = students.OrderByDescending(s => s.EnrollmentDate);
                     break;
             }
-            return View(students.ToList());
+            int pageSize = 3;
+            int pageNumber = (page ?? 1);
+            return View(students.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Student/Details/5
