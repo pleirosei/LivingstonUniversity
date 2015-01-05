@@ -12,7 +12,7 @@
     @Html.ActionLink("Create New", "Create")
 </p>
 
-@using (Html.BeginForm("Inext", "Students", FormMethod.Get))
+@using (Html.BeginForm("Index", "Student", FormMethod.Get))
 {
     <p>
         Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
@@ -54,6 +54,7 @@
 
 </table>
 <br />
-Page @( Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)of @Model.PageCount
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)of @Model.PageCount
+
 @Html.PagedListPager(Model, page => Url.Action("Index",
-    new {page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter}) )
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter}))

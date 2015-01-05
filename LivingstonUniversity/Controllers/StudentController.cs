@@ -35,14 +35,14 @@ namespace LivingstonUniversity.Controllers
 
             ViewBag.CurrentFilter = searchString;
 
-            var students = (from s in db.Students
-                           select s).ToList();
+            var students = from s in db.Students
+                           select s;
 
 
             if (!String.IsNullOrEmpty(searchString))
             {
-                students.Where(s => s.LastName.Contains(searchString)
-                                        || s.FirstMidName.Contains(searchString));
+               students = students.Where(s => s.LastName.ToUpper().Contains(searchString.ToUpper())
+                                        || s.FirstMidName.ToUpper().Contains(searchString.ToUpper()));
             }
             switch (sortOrder)
             {
@@ -58,7 +58,7 @@ namespace LivingstonUniversity.Controllers
             }
             int pageSize = 3;
             int pageNumber = (page ?? 1);
-            return View(students.ToPagedList(pageNumber, pageSize));
+            return View(students.OrderBy(s => s.LastName).ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Student/Details/5
